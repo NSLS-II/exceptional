@@ -8,7 +8,7 @@ from slacker import Slacker
 
 
 db = TinyDB('/home/edill/tb.json')
-
+PORT = 5000
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 print("SLACK_TOKEN={}".format(SLACK_TOKEN))
 slack = Slacker(SLACK_TOKEN)
@@ -33,17 +33,25 @@ def notify():
 
 
 slack_message_template = """New traceback from {beamline}
-
 uid: {uid}
-error: {error}"""
+error: {error}
+See the full traceback at: {url}
+"""
 
 
 def notify_slack(tb_info):
     error_msg = tb_info['formatted_exception'].split('\n')[-2]
+    uid = tb_info['uid']
+    url = 'https://{hostname}:{port}/tb/{uid}'.format(
+        hostname=os.uname()[1],
+        port=PORT,
+        uid=uid,
+    )
     msg = slack_message_template.format(
-        **{'beamline': tb_info['host_info'][1],
-           'uid': tb_info['uid'],
-           'error': error_msg}
+        beamline=tb_info['host_info'][1],
+        uid=uid,
+        error=error_msg,
+        url=url
     )
     slack.chat.post_message("#nsa", msg)
 
@@ -51,5 +59,7 @@ def notify_slack(tb_info):
 def insert(tb_info):
     db.insert(tb_info)
 
-def start():
-    app.run(host='0.0.0.0', port=5000, debug=True)
+def start(port=None):
+    if port is None:
+        port = PORT
+    app.run(host='0.0.0.0', port=port, debug=True)
