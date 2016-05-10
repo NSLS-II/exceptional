@@ -17,5 +17,10 @@ setup(
     packages=['exceptional'],
     install_requires=required,
     long_description='See ' + 'https://github.com/nsls-ii/exceptional',
-    license='BSD 3-clause'
+    license='BSD 3-clause',
+    entry_points="""
+    [console_scripts]
+    exceptional=exceptional.app:start
+    """
+
 )

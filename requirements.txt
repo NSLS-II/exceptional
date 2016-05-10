@@ -1,2 +1,5 @@
+IPython
 flask
+requests
 slacker
+tinydb
