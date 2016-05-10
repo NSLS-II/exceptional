@@ -49,7 +49,11 @@ def ipython_slack_notification_hook(self, etype, value, tb, tb_offset=None):
     The API has slightly changed from that email, so check out the official
     docs instead at http://ipython.org/ipython-doc/dev/api/generated/IPython.core.interactiveshell.html#IPython.core.interactiveshell.InteractiveShell.set_custom_exc
     """
-    ipython_history = list(IPython.get_ipython().history_manager.get_range())
+    # h[0] is the session number
+    # h[1] is the line number
+    # h[2] is the command]
+    ipython_history = [
+        h[2] for h in IPython.get_ipython().history_manager.get_range()]
     notify_slack(ipython_history=ipython_history)
     IPython.get_ipython().showtraceback()
 
