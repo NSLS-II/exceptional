@@ -7,7 +7,7 @@ from tinydb import TinyDB, Query
 from slacker import Slacker
 
 
-db = TinyDB('/home/edill/tb.json')
+db = TinyDB(os.path.join(os.path.expanduser('~'), 'tb.json'))
 PORT = 5000
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 print("SLACK_TOKEN={}".format(SLACK_TOKEN))

@@ -10,7 +10,7 @@ import json
 import requests
 
 
-URL = 'localhost'
+HOST = 'localhost'
 PORT = 5000
 
 
@@ -26,7 +26,7 @@ def notify_slack(**kwargs):
         'conda_env': os.environ.get('CONDA_ENV_PATH')
     }
     info.update(**kwargs)
-    url = 'http://{url}:{port}/notify'.format(URL, PORT)
+    url = 'http://{url}:{port}/notify'.format(HOST, PORT)
     r = requests.post(url, json=json.dumps(info))
     print("If you would like help with this exception, please post an issue at "
           "https://github.com/NSLS-II/Bug-Reports and reference this uid:\n\n "
