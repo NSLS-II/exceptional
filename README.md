@@ -13,25 +13,24 @@ Then in the ipython profile configuration, add these three lines
 ```python
 import exceptional
 exceptional.install_slack_notifier()
-exceptional.HOST = 'penelope.cs.nsls2.local'
+exceptional.HOST = 'bcart01'
 ```
 
 ## Installation of server
 
-### Build the docker containers
-1. navigate to the exceptional git repo
-```bash
-docker build -t ericdill:exceptional (username:containername)
-mkdir -p /tmp/data (/path/to/database/dir)
-docker run -p 5000:5000 \
-    -v /tmp/data:/data \
-    -e DB_PATH="/data/db.json" \
-    -e SLACK_TOKEN=`cat ~/dev/dotfiles/tokens/edill.slack` \
-    -d \
-    "ericdill/exceptional"
-```
+There are a number of things that need to be specified in order for this
+app to work
 
-TODO: Configure docker hub to build new containers on push.
+- docker image to run (nsls2/exceptional)
+- data storage folder (/exceptional/data)
+- database name (/exceptional/data/db.json)
+- host (bcart01)
+- port (5000)
+- slack token
+
+### Build the docker containers
+New images are built on docker hub when new code is pushed to this git repo
+and are available from nsls2/exceptional
 
 ## Notes
 
