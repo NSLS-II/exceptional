@@ -8,13 +8,11 @@ from slacker import Slacker
 import time
 from pprint import pprint
 
-print('os.environ')
-pprint(os.environ)
 DB_PATH = os.environ.get(
     'DB_PATH',
     os.path.join(os.path.expanduser('~')))
-print("DB_PATH={}".format(DB_PATH))
 db = TinyDB(DB_PATH)
+
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 slack = Slacker(SLACK_TOKEN)
 
