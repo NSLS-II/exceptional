@@ -5,14 +5,20 @@ from flask import Flask, request, jsonify
 from pprint import pprint
 from tinydb import TinyDB, Query
 from slacker import Slacker
+import time
+from pprint import pprint
 
-
-db = TinyDB(os.path.join(os.path.expanduser('~'), 'tb.json'))
-PORT = 5000
+print('os.environ')
+pprint(os.environ)
+DB_PATH = os.environ.get(
+    'DB_PATH',
+    os.path.join(os.path.expanduser('~')))
+print("DB_PATH={}".format(DB_PATH))
+db = TinyDB(DB_PATH)
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
-print("SLACK_TOKEN={}".format(SLACK_TOKEN))
 slack = Slacker(SLACK_TOKEN)
 
+PORT = 5000
 DEBUG = True
 app = Flask(__name__)
 
@@ -26,6 +32,7 @@ def notify():
     print("logging event {}".format(uid))
     tb_info = json.loads(request.get_json())
     tb_info['uid'] = uid
+    tb_info['timestamp'] = time.time()
     insert(tb_info)
     notify_slack(tb_info)
     pprint(tb_info)
@@ -63,3 +70,6 @@ def start(port=None):
     if port is None:
         port = PORT
     app.run(host='0.0.0.0', port=port, debug=True)
+
+if __name__ == "__main__":
+    start()

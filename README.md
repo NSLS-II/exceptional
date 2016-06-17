@@ -18,23 +18,20 @@ exceptional.HOST = 'penelope.cs.nsls2.local'
 
 ## Installation of server
 
-```
-git clone https://github.com/NSLS-II/exceptional
-cd exceptional
-python setup.py develop
-```
-
-You will need a slack API token.  For now let's assume you have one located
-at ~/slack.token.
-
-Start the flask server.
-
-```
-SLACK_TOKEN=`cat ~/slack.token` exceptional
+### Build the docker containers
+1. navigate to the exceptional git repo
+```bash
+docker build -t ericdill:exceptional (username:containername)
+mkdir -p /tmp/data (/path/to/database/dir)
+docker run -p 5000:5000 \
+    -v /tmp/data:/data \
+    -e DB_PATH="/data/db.json" \
+    -e SLACK_TOKEN=`cat ~/dev/dotfiles/tokens/edill.slack` \
+    -d \
+    "ericdill/exceptional"
 ```
 
-Thats it!
-
+TODO: Configure docker hub to build new containers on push.
 
 ## Notes
 
