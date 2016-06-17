@@ -32,7 +32,10 @@ def notify():
     tb_info['uid'] = uid
     tb_info['timestamp'] = time.time()
     insert(tb_info)
-    notify_slack(tb_info)
+    try:
+        notify_slack(tb_info)
+    except Exception as e:
+        print(e)
     pprint(tb_info)
     return uid
 
