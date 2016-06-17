@@ -1,9 +1,10 @@
-FROM ubuntu:latest
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
+FROM nsls2/debian-with-miniconda:latest
 
-WORKDIR /app
-COPY . /app
+USER root
+COPY . /home/builder/app
+RUN chown -R builder /home/builder
+USER builder
+WORKDIR /home/builder/app
 RUN pip install -r server-requirements.txt
 RUN pip install -e .
 

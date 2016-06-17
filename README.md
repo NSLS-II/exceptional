@@ -32,6 +32,20 @@ app to work
 New images are built on docker hub when new code is pushed to this git repo
 and are available from nsls2/exceptional
 
+### Run the exceptioanl server
+
+docker run -p 5000:5000 \
+  -e DB_PATH="/exceptional/data/db.json" \
+  -e SLACK_TOKEN=`cat /exceptional/slack.token` \
+  -d \
+  nsls2/exceptional
+
+  docker run -p 5000:5000 \
+    -e DB_PATH="/tmp/data/db.json" \
+    -e SLACK_TOKEN=`cat /home/edill/dev/dotfiles/tokens/edill.slack` \
+    -d \
+    nsls2/exceptional
+
 ## Notes
 
 There will be a .json file located in ~/tb.json. This holds all of the
