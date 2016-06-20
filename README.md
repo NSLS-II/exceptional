@@ -40,14 +40,8 @@ docker run -p 5000:5000 \
   -d \
   nsls2/exceptional
 
-  docker run -p 5000:5000 \
-    -e DB_PATH="/tmp/data/db.json" \
-    -e SLACK_TOKEN=`cat /home/edill/dev/dotfiles/tokens/edill.slack` \
-    -d \
-    nsls2/exceptional
-
 ## Notes
 
-There will be a .json file located in ~/tb.json. This holds all of the
-traceback information and it should probably be a little more robust than a
-json file, assuming that we find this sort of thing useful.
+The `DB_PATH` environmental variable that gets passed to the docker image will
+be the location of the .json based database. This holds all of the
+traceback information.
