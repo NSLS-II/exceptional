@@ -2,6 +2,12 @@
 
 A client and server to post tracebacks to the NSLS2 DAMA slack chat
 
+## Conda Recipes
+
+[tag](https://github.com/NSLS-II/lightsource2-recipes/tree/master/recipes-tag/event-model)
+
+[dev](https://github.com/NSLS-II/lightsource2-recipes/tree/master/recipes-dev/event-model)
+
 ## Installation of client
 
 ```
